@@ -6,37 +6,33 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     @base_title = "Weibo With ROR5"
   end
 
-  test "should get home" do
-    get static_pages_home_url
-    assert_response :success
 
-    assert_select "title", @base_title
+  test "should GET root" do
+    get root_url
+    assert_response :success
   end
 
   test "should get help" do
-    get static_pages_help_url
+    get help_path
     assert_response :success
 
     assert_select "title", "help | #{@base_title}"
   end
 
   test "应该 GET about" do
-    get static_pages_about_url
+    get about_path
     assert_response :success
 
     assert_select "title", "about | #{@base_title}"
   end
 
   test "应该 GET contact" do
-    get static_pages_contact_url
+    get contact_path
     assert_response :success
 
     assert_select "title", "contact | #{@base_title}"
   end
 
-  test "should GET root" do
-    get root_url
-    assert_response :success
-  end
+
 
 end
