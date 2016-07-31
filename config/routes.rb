@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   # 注册
   get '/signup', to: 'users#new'
 
+  resources :users
 end
