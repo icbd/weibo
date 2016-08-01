@@ -1,0 +1,16 @@
+<div class="row">
+  <aside class="row-md-4">
+    <section class="user_info">
+      <ul>
+        <li><%= @user.name %></li>
+        <li><%= @user.email %></li>
+        <li><%= @user.created_at %></li>
+        <li><%= @user.updated_at %></li>
+      </ul>
+      <h2>
+        <%= gravatar_for @user, {size: 60} %>
+      </h2>
+    </section>
+  </aside>
+</div>
+
