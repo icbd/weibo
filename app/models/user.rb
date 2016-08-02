@@ -12,4 +12,13 @@ class User < ApplicationRecord
             uniqueness: {case_sensitive: false}
 
   has_secure_password
+
+
+  # 类方法, 获得string的BCrypt摘要
+  def User.Digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ?
+        BCrypt::Engine::MIN_COST :
+        BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 end
