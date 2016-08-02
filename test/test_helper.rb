@@ -14,4 +14,9 @@ class ActiveSupport::TestCase
   include ApplicationHelper
 
 
+  # helper func
+  # 测试环境中不能使用正式中的方法, 遂 复制一个一模一样的过来
+  def logged_in_TEST?
+    !session[:user_id].nil?
+  end
 end
