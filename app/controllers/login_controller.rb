@@ -13,8 +13,9 @@ class LoginController < ApplicationController
         # login success
         flash.now[:success] = '欢迎回来'
 
-        log_in(user) # helper func
-
+        # helper func
+        log_in(user)
+        remember(user)
 
         return redirect_to user_url(user)
 
