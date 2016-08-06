@@ -15,7 +15,9 @@ class LoginController < ApplicationController
 
         # helper func
         log_in(user)
-        remember(user)
+
+        # 记住我复选框
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
 
         return redirect_to user_url(user)
 
