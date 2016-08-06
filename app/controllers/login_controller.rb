@@ -33,7 +33,8 @@ class LoginController < ApplicationController
   # DELETE /login
   # 登出
   def destroy
-    log_out
+    # 没登录就log_out会抛异常 undefined method `forget' for nil:NilClass
+    log_out if logged_in?
     redirect_to root_url
   end
 
