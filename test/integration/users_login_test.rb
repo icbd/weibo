@@ -28,14 +28,14 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
 
-  test "用户合法登录" do
+  test "用户合法登录, 后接退出" do
     get login_path
     assert_template 'login/new'
 
     post login_path, params: {
         session: {
             email: @user.email,
-            password: '123123'
+            password: '123456'
         }
     }
 
@@ -58,6 +58,10 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_not logged_in_TEST?
 
     assert_redirected_to root_url
+
+    # 此时已经退出, 模拟用户在另一个Tab点击退出
+    # 无处理则报 undefined method `forget' for nil:NilClass
+    delete logout_path
 
     follow_redirect!
 

@@ -13,8 +13,11 @@ class LoginController < ApplicationController
         # login success
         flash.now[:success] = '欢迎回来'
 
-        log_in(user) # helper func
+        # helper func
+        log_in(user)
 
+        # 记住我复选框
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
 
         return redirect_to user_url(user)
 
@@ -32,7 +35,8 @@ class LoginController < ApplicationController
   # DELETE /login
   # 登出
   def destroy
-    log_out
+    # 没登录就log_out会抛异常 undefined method `forget' for nil:NilClass
+    log_out if logged_in?
     redirect_to root_url
   end
 
