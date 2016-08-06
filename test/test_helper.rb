@@ -19,4 +19,25 @@ class ActiveSupport::TestCase
   def logged_in_TEST?
     !session[:user_id].nil?
   end
+
+  def log_in_as(user)
+    session[:user_id] = user.id
+  end
+
+  ## 集成测试
+  class ActionDispatch::IntegrationTest
+
+    # 简化测试过程中重复的post登录动作
+    def log_in_as(user, password='123456', remember_me: '1')
+      post login_path, params: {
+          session: {
+              email: user.email,
+              password: password,
+              remember_me: remember_me
+          }
+      }
+    end
+  end
+
+
 end

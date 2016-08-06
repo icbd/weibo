@@ -35,7 +35,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     post login_path, params: {
         session: {
             email: @user.email,
-            password: '123123'
+            password: '123456'
         }
     }
 
