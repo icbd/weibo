@@ -19,6 +19,24 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
 
+  def edit
+    @user = User.find_by(id: params[:id])
+  end
+
+  def update
+
+    @user = User.find_by(id: params[:id])
+
+    if @user.update_attributes(user_params)
+      flash[:success] = '修改成功'
+      redirect_to user_path(@user)
+    else
+      flash.now[:danger] = '认证出错'
+      render 'edit'
+    end
+
+  end
+
   private
 
   # 健壮方法
