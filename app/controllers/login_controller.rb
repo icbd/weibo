@@ -19,7 +19,8 @@ class LoginController < ApplicationController
         # 记住我复选框
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
 
-        return redirect_to user_url(user)
+        # return redirect_to user_url(user)
+        return redirect_back_or_goto(user_url(user))
 
       else
         flash.now[:danger] = '密码错误'

@@ -4,9 +4,20 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-user0: {
+user0:
   name: CbdFocus,
   email: cbdfocus@gmail.com,
   password_digest: <%= User::Digest('123456') %>
-}
+
+
+user1:
+  name: wwwicbd,
+  email: wwwicbd@gmail.com,
+  password_digest: <%= User::Digest('123456') %>
+
+
+user2:
+  name: caobaodong,
+  email: caobaodong@hotmail.com
+  password_digest: <%= User::Digest('123456') %>
 

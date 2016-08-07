@@ -4,7 +4,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   def setup
     # 获取在fixture中init的用户user0
-    @user = users(:user0)
+    @user0 = users(:user0)
   end
 
 
@@ -34,7 +34,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
     post login_path, params: {
         session: {
-            email: @user.email,
+            email: @user0.email,
             password: '123456'
         }
     }
@@ -42,13 +42,13 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     # TEST ENV 专用
     assert logged_in_TEST?
 
-    assert_redirected_to user_path(@user)
+    assert_redirected_to user_path(@user0)
 
     follow_redirect!
     assert_template 'users/show'
 
     assert_select "a[href=?]", login_path, count: 0
-    assert_select "a[href=?]", user_path(@user)
+    assert_select "a[href=?]", user_path(@user0)
     assert_select "a[href=?]", logout_path
 
     # >> 后接 登出
@@ -67,7 +67,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path, count: 0
-    assert_select "a[href=?]", user_path(@user), count: 0
+    assert_select "a[href=?]", user_path(@user0), count: 0
   end
 
 
