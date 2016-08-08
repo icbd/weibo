@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update]
-  # before_action :correct_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:edit, :update, :index]
+  before_action :correct_user, only: [:edit, :update]
 
   # 前置方法, 转到root 除非确认是用户本人
   def correct_user
@@ -15,6 +15,10 @@ class UsersController < ApplicationController
       flash[:danger] = '请登录'
       redirect_to login_path
     end
+  end
+
+  def index
+    @users = User.all
   end
 
   def new

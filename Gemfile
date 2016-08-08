@@ -3,6 +3,7 @@ source 'https://gems.ruby-china.org'
 # S:Add GEMs
 gem 'bootstrap-sass', '3.3.6'
 gem 'bcrypt', '3.1.11'
+gem 'faker', '1.6.3'
 # E:Add GEMs
 
 
