@@ -21,3 +21,10 @@ user2:
   email: caobaodong@hotmail.com
   password_digest: <%= User::Digest('123456') %>
 
+
+<% 30.times do |n| %>
+newuser_<%= n %> :
+  name: <%= "New User #{n}" %>
+  email: <%= "newuser#{n}@gmail.com" %>
+  password_digest: <%= User::Digest('123456') %>
+<% end %>
