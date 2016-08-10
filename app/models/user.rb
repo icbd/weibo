@@ -2,9 +2,10 @@ class User < ApplicationRecord
 
   has_secure_password
   # 存取器, 与 TableColumn 没有必然映射
-  attr_accessor(:remember_token)
+  attr_accessor(:remember_token, :activation_token)
 
   before_save { self.email.downcase! }
+  before_create :create_activation_digest
 
   validates :name, presence: true
   validates :email, presence: true, length: {maximum: 255}
@@ -26,14 +27,14 @@ class User < ApplicationRecord
 
 
   # 新获得一个令牌
-  def User.new_token
+  def User.New_token
     SecureRandom.urlsafe_base64
   end
 
 
   # 新生成令牌, 装填该用户的remember_token属性, Hash后的令牌落库
   def remember
-    self.remember_token = User::new_token
+    self.remember_token = User::New_token
     update_attribute(:rememberme_digest, User::Digest(self.remember_token))
   end
 
@@ -50,6 +51,13 @@ class User < ApplicationRecord
   # 删除该用户在DB中的记住我令牌哈希
   def forget
     update_attribute(:rememberme_digest, nil)
+  end
+
+  private
+  # 在账号创建之前, 先创建一个激活token对应Hash
+  def create_activation_digest
+    self.activation_token = User::New_token
+    self.activation_digest = User::Digest(self.activation_token)
   end
 
 
