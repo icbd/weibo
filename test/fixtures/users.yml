@@ -8,6 +8,7 @@ user0:
   name: CbdFocus,
   email: cbdfocus@gmail.com,
   password_digest: <%= User::Digest('123456') %>
+  admin: true
 
 
 user1:
