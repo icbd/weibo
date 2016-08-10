@@ -1,0 +1,26 @@
+<% provide(:title, '修改个人信息') %>
+
+<h1>修改您的个人信息</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <%= form_for(@user) do |f| %>
+        <%= render 'shared/error_messages' %>
+
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+
+        <%= f.submit "确认修改", class: 'btn btn-primary' %>
+    <% end %>
+
+
+    <div class="gravatar_edit">
+      <%= gravatar_for @user %>
+      <a target="_blank" rel="noopener" href="http://gravatar.com/emails">修改头像</a>
+    </div>
+  </div>
+</div>

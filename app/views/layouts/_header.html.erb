@@ -17,8 +17,9 @@
                 详细信息<b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Profile", user_path(current_user) %></li>
-                <li><%= link_to "账户设置", '#' %></li>
+                <li><%= link_to "所有用户", users_path %></li>
+                <li><%= link_to "账户信息", user_path(current_user) %></li>
+                <li><%= link_to "账户设置", edit_user_path(current_user) %></li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to "安全退出", logout_path, method: "delete" %>

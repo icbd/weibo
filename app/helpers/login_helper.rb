@@ -30,6 +30,10 @@ module LoginHelper
     end
   end
 
+  def current_user?(user)
+    current_user == user
+  end
+
 
   def logged_in?
     !current_user.nil?
@@ -49,6 +53,18 @@ module LoginHelper
     user.forget
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
+  end
+
+  # 暂存想要访问的位置
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
+
+  # 登录后回到想要访问的位置或默认位置
+  def redirect_back_or_goto(default_url)
+    url = session[:forwarding_url] || default_url
+    redirect_to(url)
+    session.delete(:forwarding_url)
   end
 
 
