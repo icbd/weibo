@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :index]
+  before_action :logged_in_user, only: [:edit, :update, :index, :destroy]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: :destroy
 
   # 前置方法, 转到root 除非确认是用户本人
   def correct_user
@@ -59,6 +60,17 @@ class UsersController < ApplicationController
 
   end
 
+
+  def destroy
+    page = params[:page]
+    User.find_by(id: params[:id]).destroy
+    flash[:success] = "删除成功"
+
+    # 删除之后回到原来那个页面
+    redirect_to users_url(page: page)
+  end
+
+
   private
 
   # 健壮方法
@@ -66,6 +78,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(
         :name, :email, :password, :password_confirmation
     )
+  end
+
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
   end
 
 end

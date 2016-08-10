@@ -37,5 +37,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
   end
 
+  test "管理员权限非法获取" do
+    log_in_as(@user1)
+    assert_not @user1.admin?
+
+    pw = '123456'
+    patch user_path(@user1), params: {
+        user: {
+            password: pw,
+            password_confirmation: pw,
+            admin: true
+        }
+    }
+
+    assert_not @user1.reload.admin?
+  end
+
 
 end

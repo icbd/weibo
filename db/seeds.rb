@@ -2,7 +2,8 @@ User.create!(
     name: 'Example',
     email: 'Example@gmail.com',
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    admin: true
 )
 
 99.times do |i|
