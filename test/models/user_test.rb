@@ -83,7 +83,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "DB中rememberme_digest 为 nil时, 记住我认证 return false而不是抛异常" do
-    assert_not @user1.authenticated?('a rememberme token')
+    assert_not @user1.authenticated?(:rememberme, 'a rememberme token')
   end
 
 

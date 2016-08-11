@@ -23,7 +23,7 @@ module LoginHelper
       @current_user ||= User.find_by(id: session[:user_id])
     elsif user_id = cookies.signed[:user_id]
       true_user = User.find_by(id: user_id)
-      if true_user and true_user.authenticated?(cookies[:remember_token])
+      if true_user and true_user.authenticated?(:rememberme, cookies[:remember_token])
         log_in(true_user)
         @current_user = true_user
       end

@@ -10,18 +10,16 @@ class LoginController < ApplicationController
     user = User.find_by(email: params[:session][:email])
     if user
       if user.authenticate(params[:session][:password])
-        # login success
-        flash.now[:success] = '欢迎回来'
-
-        # helper func
-        log_in(user)
-
-        # 记住我复选框
-        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-
-        # return redirect_to user_url(user)
-        return redirect_back_or_goto(user_url(user))
-
+        if user.activated?
+          log_in(user)
+          # 记住我复选框
+          params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+          # return redirect_to user_url(user)
+          return redirect_back_or_goto(user_url(user))
+        else
+          flash[:warning] = "账户尚未激活"
+          redirect_to root_url
+        end
       else
         flash.now[:danger] = '密码错误'
       end

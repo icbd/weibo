@@ -40,11 +40,17 @@ class User < ApplicationRecord
 
 
   # 验证令牌, 比对toke与DB中的Hash结果的对应关系
-  def authenticated?(rememberme_token)
-    # DB 中rememberme_digest 字段为空, 则不支持记住我方式登录
-    return false if self.rememberme_digest.nil?
+  # def authenticated?(rememberme_token)
+  #   # DB 中rememberme_digest 字段为空, 则不支持记住我方式登录
+  #   return false if self.rememberme_digest.nil?
+  #
+  #   BCrypt::Password.new(self.rememberme_digest).is_password?(rememberme_token)
+  # end
 
-    BCrypt::Password.new(self.rememberme_digest).is_password?(rememberme_token)
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
 
