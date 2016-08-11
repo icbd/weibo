@@ -5,27 +5,35 @@
 # below each fixture, per the syntax in the comments below
 #
 user0:
-  name: CbdFocus,
-  email: cbdfocus@gmail.com,
-  password_digest: <%= User::Digest('123456') %>
+  name: CbdFocus
+  email: cbdfocus@gmail.com
+  password_digest: <%= User::digest('123456') %>
   admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 
 user1:
-  name: wwwicbd,
-  email: wwwicbd@gmail.com,
-  password_digest: <%= User::Digest('123456') %>
+  name: wwwicbd
+  email: wwwicbd@gmail.com
+  password_digest: <%= User::digest('123456') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 
 user2:
-  name: caobaodong,
+  name: caobaodong
   email: caobaodong@hotmail.com
-  password_digest: <%= User::Digest('123456') %>
+  password_digest: <%= User::digest('123456') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 
 <% 30.times do |n| %>
 newuser_<%= n %> :
   name: <%= "New User #{n}" %>
   email: <%= "newuser#{n}@gmail.com" %>
-  password_digest: <%= User::Digest('123456') %>
+  password_digest: <%= User::digest('123456') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 <% end %>

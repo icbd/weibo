@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
 
   # 类方法, 获得string的BCrypt摘要
-  def User.Digest(string)
+  def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ?
         BCrypt::Engine::MIN_COST :
         BCrypt::Engine.cost
@@ -27,24 +27,30 @@ class User < ApplicationRecord
 
 
   # 新获得一个令牌
-  def User.New_token
+  def User.new_token
     SecureRandom.urlsafe_base64
   end
 
 
   # 新生成令牌, 装填该用户的remember_token属性, Hash后的令牌落库
   def remember
-    self.remember_token = User::New_token
-    update_attribute(:rememberme_digest, User::Digest(self.remember_token))
+    self.remember_token = User::new_token
+    update_attribute(:rememberme_digest, User::digest(self.remember_token))
   end
 
 
   # 验证令牌, 比对toke与DB中的Hash结果的对应关系
-  def authenticated?(rememberme_token)
-    # DB 中rememberme_digest 字段为空, 则不支持记住我方式登录
-    return false if self.rememberme_digest.nil?
+  # def authenticated?(rememberme_token)
+  #   # DB 中rememberme_digest 字段为空, 则不支持记住我方式登录
+  #   return false if self.rememberme_digest.nil?
+  #
+  #   BCrypt::Password.new(self.rememberme_digest).is_password?(rememberme_token)
+  # end
 
-    BCrypt::Password.new(self.rememberme_digest).is_password?(rememberme_token)
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
 
@@ -56,8 +62,8 @@ class User < ApplicationRecord
   private
   # 在账号创建之前, 先创建一个激活token对应Hash
   def create_activation_digest
-    self.activation_token = User::New_token
-    self.activation_digest = User::Digest(self.activation_token)
+    self.activation_token = User::new_token
+    self.activation_digest = User::digest(self.activation_token)
   end
 
 

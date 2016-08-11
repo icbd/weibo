@@ -29,10 +29,15 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "欢迎来到社区:)"
-      # 新建用户直接登录
-      log_in(@user)
-      redirect_to user_url(@user)
+      # flash[:success] = "欢迎来到社区:)"
+      # # 新建用户直接登录
+      # log_in(@user)
+      # redirect_to user_url(@user)
+
+
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "请去邮箱激活"
+      redirect_to root_url
     else
       render 'new'
     end

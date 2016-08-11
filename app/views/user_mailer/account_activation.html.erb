@@ -1,0 +1,5 @@
+<h1>你好 <%= @user.name %></h1>
+
+<p>
+请激活 <%= edit_account_activations_url(@user.activation_token, email: @user.email) %>
+</p>
