@@ -1,0 +1,20 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  content: '沙发'
+  created_at: <%= 10.minutes.ago %>
+
+
+two:
+  content: '板凳'
+  created_at: <%= 8.minutes.ago %>
+
+
+most_recent:
+  content: '前排'
+  created_at: <%= 3.minutes.ago %>
+

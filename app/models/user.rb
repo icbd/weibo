@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+  has_many :microposts, dependent: :destroy
   has_secure_password
   # 存取器, 与 TableColumn 没有必然映射
   attr_accessor(:remember_token)

@@ -87,4 +87,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
 
+  test "联合删除" do
+    @user1.save
+    @user1.microposts.create!(content: "内容")
+    assert_difference "Micropost.count", -1 do
+      @user1.destroy
+    end
+  end
 end
